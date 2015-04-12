@@ -1,6 +1,6 @@
 package com.personal.yaoge.service.user.service;
 
-import com.personal.yaoge.model.entity.User;
+import com.personal.yaoge.model.entity.UserDO;
 
 /**
  * 
@@ -13,5 +13,12 @@ public interface UserService {
      * @param user
      * @return
      */
-    public User save(User user);
+    public UserDO save(UserDO user);
+    
+    /**
+     * find user by usersName
+     * @param usersName
+     * @return
+     */
+    public UserDO loadByName(String usersName) ;
 }

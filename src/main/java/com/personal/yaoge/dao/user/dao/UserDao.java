@@ -1,6 +1,6 @@
 package com.personal.yaoge.dao.user.dao;
 
-import com.personal.yaoge.model.entity.User;
+import com.personal.yaoge.model.entity.UserDO;
 
 /**
  * 
@@ -13,5 +13,12 @@ public interface UserDao<T> {
      * @param t
      * @return
      */
-    public User save(T t) ; 
+    public UserDO save(T t) ; 
+    
+    /**
+     * find user by usersName
+     * @param usersName
+     * @return
+     */
+    public UserDO loadByName(String usersName) ;
 }

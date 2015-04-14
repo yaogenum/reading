@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.personal.yaoge.mybatis.dao.user.dao.inter.UsersDao">
+	<!-- <select id="get_ac" parameterType="int" resultType="Db_ac" useCache="true" 
+		> select * from db_ac where Ac_goodsid=#{Ac_goodsid} </select> <select id="get_infors" 
+		parameterType="HashMap" resultMap="acmap" useCache="true" timeout="2000"> 
+		select * from db_ac join db_goodsinfor on Ac_id=#{Ac_id} and goodsid=#{goodsid} 
+		</select> -->
+	<cache eviction="FIFO" flushInterval="10000">
+	</cache>
+
+ 	<resultMap id="usersPropertyDO" type="UsersDO">
+		<result property="id" column="id" javaType="java.lang.Integer" />
+		<result property="usersName" column="users_name" javaType="java.lang.String" />
+		<result property="usersPassword" column="users_password"
+			javaType="java.lang.String" />
+		<result property="usersEmail" column="users_email" javaType="java.lang.String" />
+		<result property="usersSex" column="users_sex" javaType="java.lang.String" />
+		<result property="usersIn" column="users_in" javaType="java.lang.String" />
+		<result property="usersVip" column="users_vip" javaType="java.lang.String" />
+		<result property="usersAge" column="users_age" javaType="java.lang.Integer" />
+		<result property="usersGrades" column="users_grades" javaType="java.lang.Integer" />
+	</resultMap>
+ 
+	<insert id="create" parameterType="UsersDO" flushCache="true"
+		timeout="2000"><!-- keyProperty="id"useGeneratedKeys="true" -->
+		<selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Integer">
+			select MAX(id)+1 as id from users
+		</selectKey>
+		insert into users values
+		(#{id},#{users_name},#{users_password},#{users_email},#{users_sex},#{users_in},#{users_vip},#{users_age},#{users_grades})
+	</insert>
+
+
+	<select id="loadByName" parameterType="java.lang.String"
+		resultMap="usersPropertyDO">
+		select distinct * from users where
+		users_name = #{usersName}
+	</select>
+
+</mapper>

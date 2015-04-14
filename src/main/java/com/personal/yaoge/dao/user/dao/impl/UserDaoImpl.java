@@ -34,9 +34,7 @@ public class UserDaoImpl implements UserDao<UserDO> {
 
     public UserDO loadByName(String usersName) {
         session = sessionFactory.getCurrentSession();
-        SQLQuery loadUserDO = session.createSQLQuery("select distinct * from users where users_name = 'yaoge22' ").addEntity(UserDO.class);
-        //loadUserDO.setParameter(0, usersName);
-        @SuppressWarnings("unchecked")
+        SQLQuery loadUserDO = session.createSQLQuery("select distinct * from users where users_name = 'yaoge33' ").addEntity(UserDO.class);
         ArrayList<UserDO> users = (ArrayList<UserDO>) loadUserDO.list();
         if (null != users) {
             if (users.size() > 1) return users.get(0);

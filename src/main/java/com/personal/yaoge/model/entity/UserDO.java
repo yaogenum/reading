@@ -19,14 +19,14 @@ public class UserDO implements Serializable {
 
     private static final long serialVersionUID = -3450061342786971896L;
     private int               id;
-    private String            usersName;
-    private String            usersPassword;
-    private String            usersEmail;
-    private String            usersSex;
-    private String            usersIn;
-    private String            usersVip;
-    private String            usersAge;
-    private String            usersGrades;
+    private String            users_name;
+    private String            users_password;
+    private String            users_email;
+    private String            users_sex;
+    private String            users_in;
+    private String            users_vip;
+    private Integer           users_age;
+    private Integer           users_grades;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -38,68 +38,85 @@ public class UserDO implements Serializable {
         this.id = id;
     }
 
-    public String getUsersName() {
-        return usersName;
+    
+    public String getUsers_name() {
+        return users_name;
     }
 
-    public void setUsersName(String usersName) {
-        this.usersName = usersName;
+    
+    public void setUsers_name(String users_name) {
+        this.users_name = users_name;
     }
 
-    public String getUsersPassword() {
-        return usersPassword;
+    
+    public String getUsers_password() {
+        return users_password;
     }
 
-    public void setUsersPassword(String usersPassword) {
-        this.usersPassword = usersPassword;
+    
+    public void setUsers_password(String users_password) {
+        this.users_password = users_password;
     }
 
-    public String getUsersEmail() {
-        return usersEmail;
+    
+    public String getUsers_email() {
+        return users_email;
     }
 
-    public void setUsersEmail(String usersEmail) {
-        this.usersEmail = usersEmail;
+    
+    public void setUsers_email(String users_email) {
+        this.users_email = users_email;
     }
 
-    public String getUsersSex() {
-        return usersSex;
+    
+    public String getUsers_sex() {
+        return users_sex;
     }
 
-    public void setUsersSex(String usersSex) {
-        this.usersSex = usersSex;
+    
+    public void setUsers_sex(String users_sex) {
+        this.users_sex = users_sex;
     }
 
-    public String getUsersIn() {
-        return usersIn;
+    
+    public String getUsers_in() {
+        return users_in;
     }
 
-    public void setUsersIn(String usersIn) {
-        this.usersIn = usersIn;
+    
+    public void setUsers_in(String users_in) {
+        this.users_in = users_in;
     }
 
-    public String getUsersVip() {
-        return usersVip;
+    
+    public String getUsers_vip() {
+        return users_vip;
     }
 
-    public void setUsersVip(String usersVip) {
-        this.usersVip = usersVip;
+    
+    public void setUsers_vip(String users_vip) {
+        this.users_vip = users_vip;
     }
 
-    public String getUsersAge() {
-        return usersAge;
+    
+    public Integer getUsers_age() {
+        return users_age;
     }
 
-    public void setUsersAge(String usersAge) {
-        this.usersAge = usersAge;
+    
+    public void setUsers_age(Integer users_age) {
+        this.users_age = users_age;
     }
 
-    public String getUsersGrades() {
-        return usersGrades;
+    
+    public Integer getUsers_grades() {
+        return users_grades;
     }
 
-    public void setUsersGrades(String usersGrades) {
-        this.usersGrades = usersGrades;
+    
+    public void setUsers_grades(Integer users_grades) {
+        this.users_grades = users_grades;
     }
 
+   
 }

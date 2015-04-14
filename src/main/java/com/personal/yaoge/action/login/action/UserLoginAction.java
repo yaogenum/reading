@@ -1,13 +1,23 @@
 package com.personal.yaoge.action.login.action;
 
-import org.apache.log4j.Logger;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+import org.apache.struts2.dispatcher.SessionMap;
+import org.apache.struts2.interceptor.ServletRequestAware;
+import org.apache.struts2.interceptor.ServletResponseAware;
+import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
-import com.personal.yaoge.model.entity.UserDO;
-import com.personal.yaoge.service.user.service.UserService;
+import com.personal.yaoge.mybatis.model.entity.UsersDO;
+import com.personal.yaoge.mybatis.service.inter.UsersService;
 
 /**
  * 类UserLoginAction.java的实现描述：用户登陆
@@ -16,7 +26,7 @@ import com.personal.yaoge.service.user.service.UserService;
  */
 
 @Component
-public class UserLoginAction extends ActionSupport {
+public class UserLoginAction extends ActionSupport implements SessionAware, ServletRequestAware, ServletResponseAware {
 
     private static final long serialVersionUID = -3450061342786971896L;
     private Logger            log              = Logger.getLogger(this.getClass());
@@ -24,7 +34,7 @@ public class UserLoginAction extends ActionSupport {
     private String            usersPassword;
     private String            yanzhen;
     @Autowired
-    private UserService       userService;
+    private UsersService      usersService;
 
     public String getUsersName() {
         return usersName;
@@ -57,25 +67,40 @@ public class UserLoginAction extends ActionSupport {
     public String execute() throws Exception {
         try {
             log.info("login deal start");
-            UserDO user = new UserDO();
-            user.setUsersName(usersName);
-            user.setUsersPassword(usersPassword);
-            userService.save(user);
-            try{
-                UserDO userDO = userService.loadByName(usersName);
-                userDO.getUsersName();
+            if (StringUtils.isBlank(yanzhen) || StringUtils.isBlank(yanzhen) || StringUtils.isBlank(yanzhen)) return INPUT;
+            String waitCode = (String) session.get("code");
+            if (!yanzhen.equalsIgnoreCase(waitCode)) return INPUT;
+
+            UsersDO usersDO = usersService.loadByName(usersName);
+            if (null == usersDO) return INPUT;
+            if (usersDO.getUsersPassword().equals(usersPassword)) {
+
+                return SUCCESS;
+            } else {
+                return ERROR;
             }
-            catch(Exception e) {
-                log.error(e);
-            }
-            
-            
-            return SUCCESS;
         } catch (Exception e) {
             log.error(e.toString());
             return ERROR;
         } finally {
             log.info("login deal end");
         }
+    }
+
+    private ActionContext       context = ActionContext.getContext();
+    private HttpServletRequest  request;
+    private HttpServletResponse response;
+    private SessionMap          session;
+
+    public void setSession(Map map) {
+        this.session = (SessionMap) map;
+    }
+
+    public void setServletRequest(HttpServletRequest request) {
+        this.request = request;
+    }
+
+    public void setServletResponse(HttpServletResponse response) {
+        this.response = response;
     }
 }

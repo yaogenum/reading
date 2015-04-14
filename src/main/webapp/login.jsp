@@ -82,7 +82,7 @@ myimg.src="makeCertPic.jsp?code="+now.getTime();
 			</span>
 		</div>
 		<div id="kuang">
-			<form name="Users_indicate" action="user/login" method="post"
+			<form name="Users_indicate" action="user/login.action" method="post"
 				onSubmit="return validate(this)">
 		
 				<p>

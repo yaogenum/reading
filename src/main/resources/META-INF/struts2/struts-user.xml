@@ -9,7 +9,7 @@
 			<result name="success">/pages/index.jsp</result>
 			<result name="error"></result>
 			<result name="success">
-				/suning.jsp
+				//personal/users_succeed.jsp
 			</result>
 			<result name="error" type="dispatcher">
 				/error.jsp

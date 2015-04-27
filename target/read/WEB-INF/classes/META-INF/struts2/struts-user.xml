@@ -6,10 +6,8 @@
 	<package name="user" namespace="/user" extends="struts-default,json-default">
 
 		<action name="login" class="com.personal.yaoge.action.login.action.UserLoginAction" method="execute" >
-			<result name="success">/pages/index.jsp</result>
-			<result name="error"></result>
 			<result name="success">
-				//personal/users_succeed.jsp
+				/personal/users_succeed.jsp
 			</result>
 			<result name="error" type="dispatcher">
 				/error.jsp

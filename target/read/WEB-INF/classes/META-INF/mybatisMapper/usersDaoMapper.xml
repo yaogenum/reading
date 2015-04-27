@@ -10,7 +10,7 @@
 	<cache eviction="FIFO" flushInterval="10000">
 	</cache>
 
-<!-- 	<resultMap id="usersPropertyDO" type="UsersDO">
+ 	<resultMap id="usersPropertyDO" type="UsersDO">
 		<result property="id" column="id" javaType="java.lang.Integer" />
 		<result property="usersName" column="users_name" javaType="java.lang.String" />
 		<result property="usersPassword" column="users_password"
@@ -22,20 +22,19 @@
 		<result property="usersAge" column="users_age" javaType="java.lang.Integer" />
 		<result property="usersGrades" column="users_grades" javaType="java.lang.Integer" />
 	</resultMap>
- -->
+ 
 	<insert id="create" parameterType="UsersDO" flushCache="true"
 		timeout="2000"><!-- keyProperty="id"useGeneratedKeys="true" -->
 		<selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Integer">
 			select MAX(id)+1 as id from users
 		</selectKey>
-
 		insert into users values
 		(#{id},#{users_name},#{users_password},#{users_email},#{users_sex},#{users_in},#{users_vip},#{users_age},#{users_grades})
 	</insert>
 
 
 	<select id="loadByName" parameterType="java.lang.String"
-		resultType="UsersDO">
+		resultMap="usersPropertyDO">
 		select distinct * from users where
 		users_name = #{usersName}
 	</select>

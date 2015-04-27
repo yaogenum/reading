@@ -1,5 +1,7 @@
 package com.personal.yaoge.action.login.action;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,8 +18,10 @@ import org.springframework.stereotype.Component;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.validator.Validator;
 import com.personal.yaoge.mybatis.model.entity.UsersDO;
 import com.personal.yaoge.mybatis.service.inter.UsersService;
+import com.personal.yaoge.utils.Validators.Validators;
 
 /**
  * 类UserLoginAction.java的实现描述：用户登陆
@@ -67,13 +71,26 @@ public class UserLoginAction extends ActionSupport implements SessionAware, Serv
     public String execute() throws Exception {
         try {
             log.info("login deal start");
-            if (StringUtils.isBlank(yanzhen) || StringUtils.isBlank(yanzhen) || StringUtils.isBlank(yanzhen)) return INPUT;
+            if (StringUtils.isBlank(yanzhen) || StringUtils.isBlank(usersName) || StringUtils.isBlank(usersPassword)) return INPUT;
             String waitCode = (String) session.get("code");
+            if (StringUtils.isBlank(waitCode)) return waitCode;
             if (!yanzhen.equalsIgnoreCase(waitCode)) return INPUT;
 
             UsersDO usersDO = usersService.loadByName(usersName);
-            if (null == usersDO) return INPUT;
+
+            if (null == usersDO || StringUtils.isBlank(usersDO.getUsersPassword())) return INPUT;
+
             if (usersDO.getUsersPassword().equals(usersPassword)) {
+                session.put(usersName, usersPassword);
+                
+                List<String> list =new ArrayList<String>();
+                List<String> list_history =new ArrayList<String>();
+                List<String> list_today =new ArrayList<String>();
+                
+                if(!Validators.isBlankString(usersDO.getUsersIn())) {
+                    
+                }
+                
 
                 return SUCCESS;
             } else {

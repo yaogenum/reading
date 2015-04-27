@@ -1,7 +1,11 @@
 package com.personal.yaoge.mybatis.model.entity;
 
 import java.io.Serializable;
-
+/**
+ * 
+ * 类UsersDO.java的实现描述：user entity mapper 
+ * @author yaoge 2015年4月26日 下午5:16:08
+ */
 public class UsersDO implements Serializable {
 
     private static final long serialVersionUID = -3452361342786978896L;

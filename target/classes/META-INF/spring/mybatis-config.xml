@@ -8,6 +8,8 @@
 		<typeAlias type="sql.mybatis.beans.Db_ac" alias="Db_ac" />
 		<typeAlias type="sql.mybatis.beans.Db_order" alias="Db_order" /> -->
 		<typeAlias type="com.personal.yaoge.mybatis.model.entity.UsersDO" alias="UsersDO" />
+		<typeAlias type="com.personal.yaoge.mybatis.model.entity.UsersBooksDO" alias="UsersBooksDO" />
+		<typeAlias type="com.personal.yaoge.mybatis.model.entity.UsersHistoryDO" alias="UsersHistoryDO" />
 	</typeAliases>
 
     <environments default="development">
@@ -28,7 +30,11 @@
     	<mapper resource="sql/mybatis/dao/db_goodsinforMapper.xml" />
     	<mapper resource="sql/mybatis/dao/db_acMapper.xml" />
     	<mapper resource="sql/mybatis/dao/db_orderMapper.xml" /> -->
-    	<!-- <mapper resource="classpath:META-INF/mybatisMapper/usersDaoMapper.xml" /> -->
+    	
+    	<!-- <mapper resource="classpath:META-INF/mybatisMapper/usersDaoMapper.xml" />
+    	<mapper resource="classpath:META-INF/mybatisMapper/usersBooksDaoMapper.xml" />
+    	<mapper resource="classpath:META-INF/mybatisMapper/usersHistoryDaoMapper.xml" />
+    	 -->
     </mappers>
     
 </configuration>

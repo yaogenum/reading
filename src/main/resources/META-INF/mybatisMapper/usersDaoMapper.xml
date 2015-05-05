@@ -24,7 +24,7 @@
 	</resultMap>
  
 	<insert id="create" parameterType="UsersDO" flushCache="true"
-		timeout="2000"><!-- keyProperty="id"useGeneratedKeys="true" -->
+		timeout="2000">
 		<selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Integer">
 			select MAX(id)+1 as id from users
 		</selectKey>

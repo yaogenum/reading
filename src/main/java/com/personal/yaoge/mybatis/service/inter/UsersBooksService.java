@@ -14,5 +14,10 @@ public interface UsersBooksService {
      */
     public List<String> tuijianShangchuan() ;
     
+    /**
+     * 根据兴趣爱好推荐 limit 5
+     * @param interest
+     * @return
+     */
     public List<String> tuijian(String interest) ;
  }

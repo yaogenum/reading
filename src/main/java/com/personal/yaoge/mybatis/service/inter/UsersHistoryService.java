@@ -15,5 +15,5 @@ public interface UsersHistoryService {
      * @param usersName
      * @return
      */
-    public List<UsersHistoryDO> findUsersReadhistory(String usersName) ;
+    public List<String> findUsersReadhistory(String usersName) ;
 }

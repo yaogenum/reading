@@ -21,20 +21,24 @@
 		<result property="books_type" column="books_type" javaType="java.lang.String" />
 	</resultMap>
 
-	<insert id="create" parameterType="UsersDO" flushCache="true"
+	<insert id="create" parameterType="UsersBooksDO" flushCache="true"
 		timeout="2000"><!-- keyProperty="id"useGeneratedKeys="true" -->
 		<selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Integer">
-			select MAX(id)+1 as id from users
+			select MAX(id)+1 as id from users_books
 		</selectKey>
-		insert into users values
-		(#{id},#{users_name},#{users_password},#{users_email},#{users_sex},#{users_in},#{users_vip},#{users_age},#{users_grades})
+		insert into users_books values
+		(#{id},#{books_name},#{books_tag},#{books_author},#{books_amount},#{books_storagetime},#{books_text},#{books_path},#{books_pic},
+		 #{books_xiazai},#{books_limit},#{books_uploader},#{books_type}
+		)
 	</insert>
 
 
-	<select id="loadByName" parameterType="java.lang.String"
-		resultMap="usersPropertyDO">
-		select distinct * from users where
-		users_name = #{usersName}
-	</select>
+	<select id="findNewShangchuang"  resultMap="usersBooksPropertyDO" parameterType="java.lang.String">
+		select  * from users_books where books_type=#{booksType}  order by books_storagetime DESC limit 1
+ 	</select>
+ 	
+ 	<select id="findTuijian"  resultMap="usersBooksPropertyDO" parameterType="java.lang.String">
+		select  * from users_books where books_type=#{interest} order by books_amount desc limit 5  
+ 	</select>  
 
 </mapper>

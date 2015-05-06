@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.personal.yaoge.mybatis.dao.user.dao.inter.UsersHistoryDao">
+	<!-- <select id="get_ac" parameterType="int" resultType="Db_ac" useCache="true" 
+		> select * from db_ac where Ac_goodsid=#{Ac_goodsid} </select> <select id="get_infors" 
+		parameterType="HashMap" resultMap="acmap" useCache="true" timeout="2000"> 
+		select * from db_ac join db_goodsinfor on Ac_id=#{Ac_id} and goodsid=#{goodsid} 
+		</select> -->
+	<cache eviction="FIFO" flushInterval="10000">
+	</cache>
+
+	<resultMap id="usersHistoryPropertyDO" type="UsersHistoryDO">
+		<result property="id" column="id" javaType="java.lang.Integer" />
+		<result property="usersName" column="users_name" javaType="java.lang.String" />
+		<result property="booksName" column="books_name" javaType="java.lang.String" />
+		<result property="booksLeibie" column="books_leibie" javaType="java.lang.String" />
+		<result property="startTime" column="start_time" javaType="java.util.Date" />
+		<result property="endTime" column="end_time" javaType="java.util.Date" />
+		<result property="readStatus" column="read_status" javaType="java.lang.String" />
+		<result property="activeTime" column="active_time" javaType="java.lang.Integer" />
+	</resultMap>
+
+	<insert id="create" parameterType="UsersHistoryDO" flushCache="true"
+		timeout="2000"><!-- keyProperty="id"useGeneratedKeys="true" -->
+		<selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Integer">
+			select MAX(id)+1 as id from users_history
+		</selectKey>
+		insert into users_history values
+		(#{id},#{users_name},#{booksName},#{booksLeibie},#{startTime},#{endTime},#{readStatus},#{activeTime})
+	</insert>
+
+
+	<select id="findUserReadHistory" parameterType="java.lang.String"
+		resultMap="usersHistoryPropertyDO">
+		select * from users_history where
+		users_name = #{usersName} ORDER BY end_time DESC LIMIT 3 
+	</select>
+
+</mapper>

@@ -10,7 +10,7 @@
 				/personal/users_succeed.jsp
 			</result>
 			<result name="error" type="dispatcher">
-				/error.jsp
+				/errors/errors.jsp
 			</result>
 			<result name="input">
 				/login.jsp

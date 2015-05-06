@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.personal.yaoge.mybatis.dao.user.dao.inter.UsersBooksDao">
+	<cache eviction="FIFO" flushInterval="10000">
+	</cache>
+
+	<resultMap id="usersBooksPropertyDO" type="UsersBooksDO">
+		<result property="id" column="id" javaType="java.lang.Integer" />
+		<result property="booksName" column="books_name" javaType="java.lang.String" />
+		<result property="booksTag" column="books_tag" javaType="java.lang.String" />
+		<result property="booksAuthor" column="books_author" javaType="java.lang.String" />
+		<result property="booksAmount" column="books_amount" javaType="java.lang.Integer" />
+		<result property="booksStoragetime" column="books_storagetime" javaType="java.lang.String" />
+		<result property="booksText" column="books_text" javaType="java.lang.String" />
+		<result property="booksPath" column="books_path" javaType="java.lang.String" />
+		<result property="books_pic" column="books_pic" javaType="java.lang.String" />
+		<result property="books_xiazai" column="books_xiazai" javaType="java.lang.Integer" />
+		<result property="books_limit" column="books_limit" javaType="java.lang.Integer" />
+		<result property="books_uploader" column="books_uploader" javaType="java.lang.String" />
+		<result property="books_type" column="books_type" javaType="java.lang.String" />
+	</resultMap>
+
+	<insert id="create" parameterType="UsersBooksDO" flushCache="true"
+		timeout="2000"><!-- keyProperty="id"useGeneratedKeys="true" -->
+		<selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Integer">
+			select MAX(id)+1 as id from users_books
+		</selectKey>
+		insert into users_books values
+		(#{id},#{books_name},#{books_tag},#{books_author},#{books_amount},#{books_storagetime},#{books_text},#{books_path},#{books_pic},
+		 #{books_xiazai},#{books_limit},#{books_uploader},#{books_type}
+		)
+	</insert>
+
+
+	<select id="findNewShangchuang"  resultMap="usersBooksPropertyDO" parameterType="java.lang.String">
+		select  * from users_books where books_type=#{booksType}  order by books_storagetime DESC limit 1
+ 	</select>
+ 	
+ 	<select id="findTuijian"  resultMap="usersBooksPropertyDO" parameterType="java.lang.String">
+		select  * from users_books where books_type=#{interest} order by books_amount desc limit 5  
+ 	</select>  
+
+</mapper>

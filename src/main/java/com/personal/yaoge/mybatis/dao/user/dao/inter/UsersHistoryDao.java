@@ -15,5 +15,5 @@ public interface UsersHistoryDao {
      * @param UsersName
      * @return
      */
-    public List<UsersHistoryDO> findUserReadHisttory(String UsersName) ;
+    public List<UsersHistoryDO> findUserReadHistory(String usersName) ;
 }

@@ -18,8 +18,9 @@ import org.springframework.stereotype.Component;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
-import com.opensymphony.xwork2.validator.Validator;
 import com.personal.yaoge.mybatis.model.entity.UsersDO;
+import com.personal.yaoge.mybatis.service.inter.UsersBooksService;
+import com.personal.yaoge.mybatis.service.inter.UsersHistoryService;
 import com.personal.yaoge.mybatis.service.inter.UsersService;
 import com.personal.yaoge.utils.Validators.Validators;
 
@@ -32,13 +33,17 @@ import com.personal.yaoge.utils.Validators.Validators;
 @Component
 public class UserLoginAction extends ActionSupport implements SessionAware, ServletRequestAware, ServletResponseAware {
 
-    private static final long serialVersionUID = -3450061342786971896L;
-    private Logger            log              = Logger.getLogger(this.getClass());
-    private String            usersName;
-    private String            usersPassword;
-    private String            yanzhen;
+    private static final long   serialVersionUID = -3450061342786971896L;
+    private Logger              log              = Logger.getLogger(this.getClass());
+    private String              usersName;
+    private String              usersPassword;
+    private String              yanzhen;
     @Autowired
-    private UsersService      usersService;
+    private UsersService        usersService;
+    @Autowired
+    private UsersBooksService   usersBooksService;
+    @Autowired
+    private UsersHistoryService usersHistoryService;
 
     public String getUsersName() {
         return usersName;
@@ -69,6 +74,7 @@ public class UserLoginAction extends ActionSupport implements SessionAware, Serv
      */
     @Override
     public String execute() throws Exception {
+        List<String> info=new ArrayList<String>();
         try {
             log.info("login deal start");
             if (StringUtils.isBlank(yanzhen) || StringUtils.isBlank(usersName) || StringUtils.isBlank(usersPassword)) return INPUT;
@@ -77,27 +83,46 @@ public class UserLoginAction extends ActionSupport implements SessionAware, Serv
             if (!yanzhen.equalsIgnoreCase(waitCode)) return INPUT;
 
             UsersDO usersDO = usersService.loadByName(usersName);
-
+            
             if (null == usersDO || StringUtils.isBlank(usersDO.getUsersPassword())) return INPUT;
 
             if (usersDO.getUsersPassword().equals(usersPassword)) {
                 session.put(usersName, usersPassword);
-                
-                List<String> list =new ArrayList<String>();
-                List<String> list_history =new ArrayList<String>();
-                List<String> list_today =new ArrayList<String>();
-                
-                if(!Validators.isBlankString(usersDO.getUsersIn())) {
-                    
+
+                List<String> list = new ArrayList<String>();
+                List<String> list_history = new ArrayList<String>();
+                List<String> list_today = new ArrayList<String>();
+
+                list = usersBooksService.tuijianShangchuan();
+
+                if (!Validators.isBlankString(usersDO.getUsersIn())) {
+                    list_today = usersBooksService.tuijian(usersDO.getUsersIn());
                 }
+                list_history = usersHistoryService.findUsersReadhistory(usersDO.getUsersName());
                 
+                //设置页面显示属性
+                request.getSession(true).setAttribute("users_name",usersDO.getUsersName());
+                request.getSession(true).setAttribute("vip",usersDO.getUsersVip());
+                request.getSession(true).setAttribute("interest",usersDO.getUsersIn());
+                
+                request.setAttribute("list_today",list_today);
+                request.setAttribute("infor_his", list_history);
+                request.setAttribute("infor", list);
+                request.setAttribute("info", usersDO.getUsersName());
+                request.setAttribute("vip", usersDO.getUsersIn());
+                request.setAttribute("users_name", usersDO.getUsersName());
 
                 return SUCCESS;
             } else {
+                info.add("userName and password don't match !!!");
+                request.setAttribute("info", info);
                 return ERROR;
             }
         } catch (Exception e) {
+            
             log.error(e.toString());
+            info.add(e.toString());
+            request.setAttribute("info", info);
             return ERROR;
         } finally {
             log.info("login deal end");

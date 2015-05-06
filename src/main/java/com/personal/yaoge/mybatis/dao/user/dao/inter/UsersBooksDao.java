@@ -15,7 +15,7 @@ public interface UsersBooksDao {
      * 查找最新的上传的书籍:各种类别最新的一本 limit 1
      * @return
      */
-     public List<UsersBooksDO> findNewShangchuang() ;
+     public List<UsersBooksDO> findNewShangchuang(String booksType) ;
      /**
       *  根据兴趣推荐limit5
       * @param interest

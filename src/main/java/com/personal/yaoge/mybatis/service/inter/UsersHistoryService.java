@@ -1,9 +1,6 @@
 package com.personal.yaoge.mybatis.service.inter;
 
 import java.util.List;
-
-import com.personal.yaoge.mybatis.model.entity.UsersHistoryDO;
-
 /**
  * 
  * 类UsersHistoryService.java的实现描述：users-history-service 
@@ -15,5 +12,5 @@ public interface UsersHistoryService {
      * @param usersName
      * @return
      */
-    public List<UsersHistoryDO> findUsersReadhistory(String usersName) ;
+    public List<String> findUsersReadhistory(String usersName) ;
 }

@@ -10,5 +10,12 @@
 	<constant name="struts.devMode" value="true" />
 
 	<include file="META-INF/struts2/struts-user.xml"></include>
+	<package name="home" namespace="/" extends="struts-default">
+		<default-action-ref name="index" />
+		<action name="index" class="com.personal.yaoge.home.HomeAction">
+			<result name="success">/shouye.jsp</result>
+		</action>
+	</package>
+
 </struts>
 

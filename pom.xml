@@ -208,7 +208,6 @@
 			<version>4.0.0</version>
 		</dependency>
 
-
 		<dependency>
 			<groupId>org.apache.lucene</groupId>
 			<artifactId>lucene-analyzers-smartcn</artifactId>
@@ -252,8 +251,6 @@
 			<version>18.0</version>
 		</dependency>
 
-
-
 	</dependencies>
 
 	<build>
@@ -266,4 +263,5 @@
 			</plugin>
 		</plugins>
 	</build>
+	
 </project>

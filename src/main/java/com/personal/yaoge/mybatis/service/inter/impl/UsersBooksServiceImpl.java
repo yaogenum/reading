@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.personal.yaoge.mybatis.dao.user.dao.inter.UsersBooksDao;
 import com.personal.yaoge.mybatis.model.entity.UsersBooksDO;
@@ -14,10 +15,13 @@ import com.personal.yaoge.mybatis.service.inter.UsersBooksService;
  * 类UsersBooksServiceImpl.java的实现描述：users books service 
  * @author yaoge 2015年5月6日 上午12:11:59
  */
+@Service
 public class UsersBooksServiceImpl implements UsersBooksService{
     @Autowired
     UsersBooksDao usersBooksDao ;
-    
+    protected UsersBooksServiceImpl() {
+        System.out.println("1");
+    }
     private String[] booksTypes ={"it","math","economy","fiction","literature","scientist","tool"};
     
     public List<String> tuijianShangchuan() {

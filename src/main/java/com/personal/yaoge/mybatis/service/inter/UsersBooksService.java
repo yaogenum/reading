@@ -2,6 +2,8 @@ package com.personal.yaoge.mybatis.service.inter;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 /**
  * 
  * 类UsersBooksService.java的实现描述：users-books-service 

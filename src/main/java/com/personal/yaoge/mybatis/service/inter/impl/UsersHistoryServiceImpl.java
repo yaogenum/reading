@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.personal.yaoge.mybatis.dao.user.dao.inter.UsersHistoryDao;
 import com.personal.yaoge.mybatis.model.entity.UsersHistoryDO;
@@ -15,6 +16,7 @@ import com.personal.yaoge.mybatis.service.inter.UsersHistoryService;
  * 
  * @author yaoge 2015年5月6日 上午12:13:24
  */
+@Service
 public class UsersHistoryServiceImpl implements UsersHistoryService {
 
     @Autowired
